@@ -202,20 +202,20 @@ function obtenerMenu(ROLE) {
             titulo: 'Principal',
             icono: 'mdi mdi-gauge',
             submenu: [
-                { titulo: 'Dashboard', url: '/dashboard' },
-                { titulo: 'ProgressBar', url: '/progress' },
+                { titulo: 'Indicadores', url: '/dashboard' },
+                { titulo: 'Metas', url: '/progress' },
                 { titulo: 'Gráficas', url: '/graficas1' },
-                { titulo: 'Promesas', url: '/promesas' },
-                { titulo: 'RxJs', url: '/rxjs' }
+                { titulo: 'Alertas', url: '/promesas' },
+                { titulo: 'Notificaciones', url: '/rxjs' }
             ]
         },
         {
-            titulo: 'Mantenimientos',
+            titulo: 'Proceso Contractual',
             icono: 'mdi mdi-folder-lock-open',
             submenu: [
                 // { titulo: 'Usuarios', url: '/usuarios' },
-                { titulo: 'Hospitales', url: '/hospitales' },
-                { titulo: 'Médicos', url: '/medicos' }
+                { titulo: 'Procesos', url: '/hospitales' },
+                { titulo: 'Documentos', url: '/medicos' }
             ]
         }
     ];
