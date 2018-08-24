@@ -14,7 +14,7 @@ app.get('/:tipo/:arch', (req, res, next) => {
     fs.exists(path, existe => {
 
         if (!existe) {
-            path = './assets/1 4 Rut.pdf';
+            path = './assets/celula.pdf';
         }
 
 

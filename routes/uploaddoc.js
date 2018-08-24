@@ -47,7 +47,7 @@ app.put('/:tipo/:id', (req, res, next) => {
     var extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
     // Sólo estas extensiones aceptamos
-    var extensionesValidas = ['doc', 'ppt', 'xls', 'pdf'];
+    var extensionesValidas = ['doc', 'ppt', 'xls', 'pdf', 'docx'];
 
     if (extensionesValidas.indexOf(extensionArchivo) < 0) {
         return res.status(400).json({
