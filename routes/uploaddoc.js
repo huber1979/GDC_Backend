@@ -37,17 +37,17 @@ app.put('/:tipo/:id', (req, res, next) => {
         return res.status(400).json({
             ok: false,
             mensaje: 'No selecciono nada',
-            errors: { message: 'Debe de seleccionar una imagen' }
+            errors: { message: 'Debe de seleccionar un archivo' }
         });
     }
 
     // Obtener nombre del archivo
-    var archivo = req.files.imagen;
+    var archivo = req.files.documento;
     var nombreCortado = archivo.name.split('.');
     var extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
     // Sólo estas extensiones aceptamos
-    var extensionesValidas = ['png', 'jpg', 'gif', 'jpeg',];
+    var extensionesValidas = ['doc', 'ppt', 'xls', 'pdf'];
 
     if (extensionesValidas.indexOf(extensionArchivo) < 0) {
         return res.status(400).json({
@@ -95,45 +95,6 @@ app.put('/:tipo/:id', (req, res, next) => {
 
 function subirPorTipo(tipo, id, nombreArchivo, res) {
 
-    if (tipo === 'usuarios') {
-
-        Usuario.findById(id, (err, usuario) => {
-
-            if (!usuario) {
-                return res.status(400).json({
-                    ok: true,
-                    mensaje: 'Usuario no existe',
-                    errors: { message: 'Usuario no existe' }
-                });
-            }
-
-
-            var pathViejo = './uploads/usuarios/' + usuario.img;
-
-            // Si existe, elimina la imagen anterior
-            if (fs.existsSync(pathViejo)) {
-                fs.unlink(pathViejo);
-            }
-
-            usuario.img = nombreArchivo;
-
-            usuario.save((err, usuarioActualizado) => {
-
-                usuarioActualizado.password = ':)';
-
-                return res.status(200).json({
-                    ok: true,
-                    mensaje: 'Imagen de usuario actualizada',
-                    usuario: usuarioActualizado
-                });
-
-            })
-
-
-        });
-
-    }
-
     if (tipo === 'medicos') {
 
         Medico.findById(id, (err, medico) => {
@@ -141,25 +102,25 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
             if (!medico) {
                 return res.status(400).json({
                     ok: true,
-                    mensaje: 'Médico no existe',
-                    errors: { message: 'Médico no existe' }
+                    mensaje: 'Documento no existe',
+                    errors: { message: 'Documento no existe' }
                 });
             }
 
-            var pathViejo = './uploads/medicos/' + medico.img;
+            var pathViejo = './uploads/medicos/' + medico.arch;
 
             // Si existe, elimina la imagen anterior
             if (fs.existsSync(pathViejo)) {
                 fs.unlink(pathViejo);
             }
 
-            medico.img = nombreArchivo;
+            medico.arch = nombreArchivo;
 
             medico.save((err, medicoActualizado) => {
 
                 return res.status(200).json({
                     ok: true,
-                    mensaje: 'Imagen de médico actualizada',
+                    mensaje: 'Documento actualizado',
                     medico: medicoActualizado
                 });
 
@@ -167,42 +128,6 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
 
         });
     }
-
-    if (tipo === 'hospitales') {
-
-        Hospital.findById(id, (err, hospital) => {
-
-            if (!hospital) {
-                return res.status(400).json({
-                    ok: true,
-                    mensaje: 'Hospital no existe',
-                    errors: { message: 'Hospital no existe' }
-                });
-            }
-
-            var pathViejo = './uploads/hospitales/' + hospital.img;
-
-            // Si existe, elimina la imagen anterior
-            if (fs.existsSync(pathViejo)) {
-                fs.unlink(pathViejo);
-            }
-
-            hospital.img = nombreArchivo;
-
-            hospital.save((err, hospitalActualizado) => {
-
-                return res.status(200).json({
-                    ok: true,
-                    mensaje: 'Imagen de hospital actualizada',
-                    hospital: hospitalActualizado
-                });
-
-            })
-
-        });
-    }
-
-
 }
 
 
